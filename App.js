@@ -1,19 +1,26 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { PostsState } from "./src/context/posts/PostsState";
+import { MainLayout } from "./src/MainLayout";
+import { loadFonts } from "./src/helpers/loadFonts";
+import { AppLoading } from "expo";
+import { ScreenState } from "./src/context/screen/ScreenState";
 
 export default function App() {
+  const [isReady, setIsReady] = useState(false);
+
+  if (!isReady) {
+    return <AppLoading
+      startAsync={loadFonts}
+      onError={() => 'Error'}
+      onFinish={() => setIsReady(true)}
+    />;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <ScreenState>
+      <PostsState>
+        <MainLayout/>
+      </PostsState>
+    </ScreenState>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
