@@ -1,26 +1,30 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { EvilIcons, FontAwesome5 } from '@expo/vector-icons';
 import { AppCard } from "../components/ui/AppCard";
 import { AppTextBold } from "../components/ui/AppTextBold";
-import { ScreenContext } from "../context/screen/screenContext";
 import { PostsContext } from "../context/posts/postsContext";
 import { AppText } from "../components/ui/AppText";
 import { Comment } from "../components/Comment";
 import { THEME } from "../theme";
 
-export const PostScreen = () => {
-  const { postId, changeUserScreen } = useContext(ScreenContext);
+export const PostScreen = ({ route, navigation }) => {
+  const { postId } = route.params;
   const { posts } = useContext(PostsContext);
-  const post = posts.find(t => t.id === postId);
+  const post = useMemo(
+    () => posts.find(t => t.id === postId),
+    [posts, postId]
+  );
 
   const onUserScreen = useCallback(
-    () => changeUserScreen(post.author),
-    [changeUserScreen, post]
+    () => navigation.navigate('Profile', {
+      author: post.author,
+    }),
+    [navigation]
   );
 
   return (
-    <View>
+    <View style={styles.container}>
       <AppCard>
         <View style={styles.cardTop}>
           <View style={styles.authorWrap}>
@@ -41,6 +45,8 @@ export const PostScreen = () => {
         {post.comments.length
         ? (<FlatList
             data={post.comments}
+            initialNumToRender={3}
+            windowSize={10}
             keyExtractor={item => item.id}
             renderItem={({ item }) => (
               <Comment comment={item} onUserScreen={onUserScreen} />
@@ -61,6 +67,12 @@ export const PostScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: THEME.MAIN_PADDING_HORIZONTAL,
+    paddingVertical: 20,
+  },
   cardTop: {
     marginBottom: 10,
     flexDirection: 'row',

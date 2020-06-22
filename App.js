@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { PostsState } from "./src/context/posts/PostsState";
-import { MainLayout } from "./src/MainLayout";
 import { loadFonts } from "./src/helpers/loadFonts";
 import { AppLoading } from "expo";
-import { ScreenState } from "./src/context/screen/ScreenState";
+import { NavigationContainer } from '@react-navigation/native';
+import { AppNavigation } from "./src/navigation/AppNavigation";
+import { Footer } from "./src/components/Footer";
+
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
@@ -17,10 +19,11 @@ export default function App() {
   }
 
   return (
-    <ScreenState>
+    <NavigationContainer>
       <PostsState>
-        <MainLayout/>
+        <AppNavigation/>
       </PostsState>
-    </ScreenState>
+      <Footer/>
+    </NavigationContainer>
   );
 }
