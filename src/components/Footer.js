@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Linking, StyleSheet, View } from 'react-native';
 import { AppText } from "./ui/AppText";
 import { THEME } from "../theme";
 
 export const Footer = () => {
+
+  const handleClick = useCallback(
+    () => Linking.openURL('https://github.com/kiramarks'),
+    []
+  );
+
   return (
     <View style={styles.footer}>
       <AppText style={{ color: THEME.FOOTER_LINK_COLOR }}>Developed by</AppText>
       <AppText style={styles.footerLink}
-               onPress={() => Linking.openURL('https://github.com/kiramarks')}
+               onPress={handleClick}
       >
         Kira Marks
       </AppText>

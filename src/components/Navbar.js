@@ -22,6 +22,19 @@ export const Navbar = () => {
     loadUsers();
   }, []);
 
+  const handleBackClick = useCallback(
+    () => {
+      changePostScreen(null)
+      changeUserScreen(null)
+    },
+    [changePostScreen, changeUserScreen]
+  );
+
+  const handleProfileClick = useCallback(
+    () => changeUserScreen(users[1].username),
+    [changeUserScreen, users]
+  );
+
   return (
     <View style={{
       ...styles.nav,
@@ -33,10 +46,7 @@ export const Navbar = () => {
         <View style={styles.backBtn}>
           <AppButton
             bgColor={THEME.MAIN_COLOR}
-            onPress={() => {
-              changePostScreen(null)
-              changeUserScreen(null)
-            }}
+            onPress={handleBackClick}
           >
             <AntDesign name='back' size={20} />
           </AppButton>
@@ -46,9 +56,7 @@ export const Navbar = () => {
       <View style={styles.profile}>
         <AppButton
           bgColor={THEME.MAIN_COLOR}
-          onPress={() => {
-            changeUserScreen(users[1].username)
-          }}
+          onPress={handleProfileClick}
         >
           <FontAwesome name='user-circle' size={25} />
         </AppButton>
