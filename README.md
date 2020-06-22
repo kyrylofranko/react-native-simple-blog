@@ -7,6 +7,8 @@ Clone this repository to start a project based on.
     "expo": "~37.0.3",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
+    "@react-navigation/native": "^5.5.1",
+    "prop-types": "^15.7.2",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
     "react-native-web": "~0.11.7".    
     
