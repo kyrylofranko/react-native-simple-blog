@@ -1,25 +1,27 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { EvilIcons, FontAwesome } from '@expo/vector-icons';
 import { AppText } from "./ui/AppText";
 import { AppTextBold } from "./ui/AppTextBold";
 import { AppCommentsBtn } from "./ui/AppCommentsBtn";
 import { THEME } from "../theme";
-import { ScreenContext } from "../context/screen/screenContext";
 import PropTypes from "prop-types";
 
 
-export const Post = ({ post }) => {
-  const { changePostScreen, changeUserScreen } = useContext(ScreenContext);
+export const Post = ({ post, navigation }) => {
 
   const onUserScreen = useCallback(
-    () => changeUserScreen(post.author),
-    [changeUserScreen, post]
+    () => navigation.navigate('Profile', {
+      author: post.author,
+    }),
+    [navigation]
   );
 
   const onPostScreen = useCallback(
-    () => changePostScreen(post.id),
-    [changePostScreen, post]
+    () => navigation.navigate('Post', {
+      postId: post.id,
+    }),
+    [navigation]
   );
 
   return (

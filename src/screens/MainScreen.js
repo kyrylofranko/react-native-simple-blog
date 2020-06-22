@@ -2,30 +2,35 @@ import React, { useCallback, useContext, useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Post } from "../components/Post";
 import { PostsContext } from "../context/posts/postsContext";
-import { AppTextBold } from "../components/ui/AppTextBold";
+import { THEME } from "../theme";
 
-export const MainScreen = () => {
-  const { posts, fetchPosts } = useContext(PostsContext);
-
-  const loadPosts = useCallback(async () => await fetchPosts(), [fetchPosts]);
+export const MainScreen = ({ navigation }) => {
+  const { posts, fetchPosts, fetchUsers } = useContext(PostsContext);
 
   useEffect(() => {
     loadPosts();
+    loadUsers();
   }, []);
+
+  const loadPosts = useCallback(async () => await fetchPosts(), [fetchPosts]);
+  const loadUsers = useCallback(async () => await fetchUsers(), [fetchUsers]);
 
   return (
     <View style={styles.container}>
-      <AppTextBold style={styles.heading}>Feed</AppTextBold>
       <FlatList
         data={posts}
+        initialNumToRender={5}
+        windowSize={10}
+        contentContainerStyle={{ paddingHorizontal: THEME.MAIN_PADDING_HORIZONTAL, }}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
-          <Post post={item} />
+          <Post post={item} navigation={navigation} />
         )}
       />
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -33,10 +38,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: 20,
   },
-  heading: {
-    marginBottom: 10,
-    fontSize: 22,
-    alignSelf: 'flex-start',
-  }
 });
