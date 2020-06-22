@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
+import PropTypes from "prop-types";
 
 export const AppText = (props) => {
   return (
@@ -14,3 +15,12 @@ const styles = StyleSheet.create({
     fontFamily: 'helvetica-regular',
   }
 });
+
+AppText.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
+  style: PropTypes.any,
+  onPress: PropTypes.func,
+}

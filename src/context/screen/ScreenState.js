@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import PropTypes from 'prop-types';
 import { ScreenContext } from "./screenContext";
 import { screenReducer } from "./screenReducer";
 import { CHANGE_POST_SCREEN, CHANGE_USER_SCREEN } from "../types";
@@ -29,4 +30,11 @@ export const ScreenState = ({ children }) => {
       {children}
     </ScreenContext.Provider>
   );
+}
+
+ScreenState.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
 }

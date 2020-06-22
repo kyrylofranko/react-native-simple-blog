@@ -4,6 +4,7 @@ import { Entypo } from '@expo/vector-icons';
 import { AppTextBold } from "./ui/AppTextBold";
 import { AppText } from "./ui/AppText";
 import { THEME } from "../theme";
+import PropTypes from "prop-types";
 
 export const Comment = ({ comment, onUserScreen }) => {
   return (
@@ -45,3 +46,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+Comment.propTypes = {
+  comment: PropTypes.shape({
+    id: PropTypes.string,
+    body: PropTypes.string,
+    post: PropTypes.string,
+    author: PropTypes.string,
+  }).isRequired,
+  onUserScreen: PropTypes.func.isRequired,
+}

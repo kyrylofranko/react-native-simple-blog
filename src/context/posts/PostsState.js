@@ -3,6 +3,7 @@ import { postsReducer } from "./postsReducer";
 import { PostsContext } from "./postsContext";
 import { Http } from "../../helpers/http";
 import { FETCH_POSTS, FETCH_USERS, FINISH_LOADING, START_LOADING } from "../types";
+import PropTypes from "prop-types";
 
 const API_URL = 'http://my-json-server.typicode.com/orlovskyalex/jellyfish-fake-rest-server';
 
@@ -58,4 +59,11 @@ export const PostsState = ({ children }) => {
       {children}
     </PostsContext.Provider>
   );
+}
+
+PostsState.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
 }

@@ -6,6 +6,8 @@ import { AppTextBold } from "./ui/AppTextBold";
 import { AppCommentsBtn } from "./ui/AppCommentsBtn";
 import { THEME } from "../theme";
 import { ScreenContext } from "../context/screen/screenContext";
+import PropTypes from "prop-types";
+
 
 export const Post = ({ post }) => {
   const { changePostScreen, changeUserScreen } = useContext(ScreenContext);
@@ -105,3 +107,12 @@ const styles = StyleSheet.create({
     color: '#fff',
   }
 });
+
+Post.propTypes = {
+  post: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    body: PropTypes.string,
+    author: PropTypes.string,
+  }).isRequired,
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import PropTypes from "prop-types";
 
 export const AppCard = (props) => {
   return (
@@ -21,3 +22,14 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 2}
   },
 });
+
+AppCard.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
+  style: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+}

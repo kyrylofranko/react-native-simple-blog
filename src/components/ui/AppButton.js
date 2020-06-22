@@ -6,6 +6,7 @@ import {
   TouchableNativeFeedback,
   Platform
 } from 'react-native';
+import PropTypes from "prop-types";
 import { AppTextBold } from "./AppTextBold";
 import { THEME } from "../../theme";
 
@@ -43,3 +44,13 @@ const styles = StyleSheet.create({
     color: 'white',
   }
 });
+
+AppButton.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
+  onPress: PropTypes.func.isRequired,
+  bgColor: PropTypes.string,
+  color: PropTypes.string,
+}
