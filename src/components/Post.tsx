@@ -5,21 +5,23 @@ import { AppText } from "./ui/AppText";
 import { AppTextBold } from "./ui/AppTextBold";
 import { AppCommentsBtn } from "./ui/AppCommentsBtn";
 import { THEME } from "../theme";
-import PropTypes from "prop-types";
+import { PostScreenNavigationProp } from '../navigation/types';
+import { useNavigation } from '@react-navigation/native';
 
 
-export const Post = ({ post, navigation }) => {
+export const Post = ({ author, id, title, body, comments }: Post) => {
+  const navigation = useNavigation<PostScreenNavigationProp>();
 
   const onUserScreen = useCallback(
     () => navigation.navigate('Profile', {
-      author: post.author,
+      author: author,
     }),
     [navigation]
   );
 
   const onPostScreen = useCallback(
     () => navigation.navigate('Post', {
-      postId: post.id,
+      postId: id,
     }),
     [navigation]
   );
@@ -32,14 +34,14 @@ export const Post = ({ post, navigation }) => {
           style={styles.author}
           onPress={onUserScreen}
         >
-          {post.author}
+          {author}
         </AppTextBold>
       </View>
-      <AppTextBold style={styles.title}>{post.title}</AppTextBold>
+      <AppTextBold style={styles.title}>{title}</AppTextBold>
       <AppText
         onPress={onPostScreen}
       >
-        {post.body}
+        {body}
       </AppText>
       <View style={styles.commentsBtn}>
         <AppCommentsBtn onPress={onPostScreen}>
@@ -51,7 +53,7 @@ export const Post = ({ post, navigation }) => {
           />
         </AppCommentsBtn>
         <View style={styles.indicator}>
-          <AppText style={styles.indicatorValue}>{post.comments.length}</AppText>
+          <AppText style={styles.indicatorValue}>{comments.length}</AppText>
         </View>
       </View>
     </View>
@@ -109,12 +111,3 @@ const styles = StyleSheet.create({
     color: '#fff',
   }
 });
-
-Post.propTypes = {
-  post: PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string,
-    body: PropTypes.string,
-    author: PropTypes.string,
-  }).isRequired,
-}

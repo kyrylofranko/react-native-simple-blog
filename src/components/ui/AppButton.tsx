@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   StyleSheet,
   View,
@@ -6,11 +7,10 @@ import {
   TouchableNativeFeedback,
   Platform
 } from 'react-native';
-import PropTypes from "prop-types";
 import { AppTextBold } from "./AppTextBold";
 import { THEME } from "../../theme";
 
-export const AppButton = (props) => {
+export const AppButton = (props: AppButtonProps) => {
   const {
     children,
     onPress,
@@ -18,14 +18,16 @@ export const AppButton = (props) => {
     color = 'white',
   } = props;
 
-  const Container = Platform.OS === 'ios'
+  const Container: any = Platform.OS === 'ios'
     ? TouchableOpacity
     : TouchableNativeFeedback;
 
   return (
     <Container onPress={onPress} activeOpacity={0.7}>
       <View style={{...styles.button, backgroundColor: bgColor }}>
-        <AppTextBold style={{ ...styles.text, color: color }}>{children}</AppTextBold>
+        <AppTextBold style={{ ...styles.text, color: color }}>
+          {children}
+        </AppTextBold>
       </View>
     </Container>
   );
@@ -44,13 +46,3 @@ const styles = StyleSheet.create({
     color: 'white',
   }
 });
-
-AppButton.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-  onPress: PropTypes.func.isRequired,
-  bgColor: PropTypes.string,
-  color: PropTypes.string,
-}

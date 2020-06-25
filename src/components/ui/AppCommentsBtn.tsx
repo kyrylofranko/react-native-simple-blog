@@ -6,15 +6,10 @@ import {
   TouchableNativeFeedback,
   Platform
 } from 'react-native';
-import PropTypes from "prop-types";
 
-export const AppCommentsBtn = (props) => {
-  const {
-    children,
-    onPress,
-  } = props;
+export const AppCommentsBtn = ({ children, onPress }: AppCommentsBtnProps) => {
 
-  const Container = Platform.OS === 'ios'
+  const Container: any = Platform.OS === 'ios'
     ? TouchableOpacity
     : TouchableNativeFeedback;
 
@@ -35,11 +30,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
-
-AppCommentsBtn.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-  onPress: PropTypes.func,
-}

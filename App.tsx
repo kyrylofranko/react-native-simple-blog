@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { PostsState } from "./src/context/posts/PostsState";
 import { loadFonts } from "./src/helpers/loadFonts";
 import { AppLoading } from "expo";
 import { NavigationContainer } from '@react-navigation/native';
 import { AppNavigation } from "./src/navigation/AppNavigation";
 import { Footer } from "./src/components/Footer";
+import { Provider } from "react-redux";
+import store from "./src/store";
 
 
 export default function App() {
@@ -19,11 +20,11 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <PostsState>
-        <AppNavigation/>
-      </PostsState>
-      <Footer/>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+          <AppNavigation/>
+        <Footer/>
+      </NavigationContainer>
+    </Provider>
   );
 }

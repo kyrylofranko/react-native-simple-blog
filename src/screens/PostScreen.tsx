@@ -1,18 +1,20 @@
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { EvilIcons, FontAwesome5 } from '@expo/vector-icons';
 import { AppCard } from "../components/ui/AppCard";
 import { AppTextBold } from "../components/ui/AppTextBold";
-import { PostsContext } from "../context/posts/postsContext";
 import { AppText } from "../components/ui/AppText";
 import { Comment } from "../components/Comment";
 import { THEME } from "../theme";
+import { PostScreenProps } from '../navigation/types';
+import { useSelector } from 'react-redux';
+import { getPosts } from '../store';
 
-export const PostScreen = ({ route, navigation }) => {
+export const PostScreen = ({ route, navigation }: PostScreenProps) => {
   const { postId } = route.params;
-  const { posts } = useContext(PostsContext);
-  const post = useMemo(
-    () => posts.find(t => t.id === postId),
+  const posts = useSelector(getPosts);
+  const post: Post = useMemo(
+    () => posts.find((t: Post) => t.id === postId),
     [posts, postId]
   );
 
@@ -49,7 +51,7 @@ export const PostScreen = ({ route, navigation }) => {
             windowSize={10}
             keyExtractor={item => item.id}
             renderItem={({ item }) => (
-              <Comment comment={item} onUserScreen={onUserScreen} />
+              <Comment {...item} onUserScreen={onUserScreen} />
             )}
           />)
         : (

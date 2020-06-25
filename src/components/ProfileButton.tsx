@@ -1,13 +1,14 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AppButton } from "./ui/AppButton";
 import { THEME } from "../theme";
 import { FontAwesome } from "@expo/vector-icons";
-import { PostsContext } from "../context/posts/postsContext";
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { getUsers } from '../store';
 
 export const ProfileButton = () => {
-  const { users } = useContext(PostsContext);
+  const users = useSelector(getUsers);
   const navigation = useNavigation();
 
   const handleProfileClick = useCallback(

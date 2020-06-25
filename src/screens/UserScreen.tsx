@@ -1,14 +1,16 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { PostsContext } from "../context/posts/postsContext";
 import { Post } from "../components/Post";
 import { THEME } from "../theme";
+import { ProfileScreenProps } from '../navigation/types';
+import { useSelector } from 'react-redux';
+import { getPosts } from '../store';
 
-export const UserScreen = ({ route }) => {
+export const UserScreen = ({ route }: ProfileScreenProps) => {
   const { author } = route.params;
-  const { posts } = useContext(PostsContext);
+  const posts = useSelector(getPosts);
   const authorPosts = useMemo(
-    () => posts.filter(post => post.author === author),
+    () => posts.filter((post: Post) => post.author === author),
     [posts, author]
   );
 
@@ -18,7 +20,7 @@ export const UserScreen = ({ route }) => {
         data={authorPosts}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
-          <Post post={item} />
+          <Post {...item} />
         )}
       />
     </View>
