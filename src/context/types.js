@@ -1,4 +1,0 @@
-export const FETCH_POSTS = 'FETCH_POSTS';
-export const FETCH_USERS = 'FETCH_USERS';
-export const START_LOADING = 'START_LOADING';
-export const FINISH_LOADING = 'FINISH_LOADING';

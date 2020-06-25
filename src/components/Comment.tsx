@@ -4,9 +4,8 @@ import { Entypo } from '@expo/vector-icons';
 import { AppTextBold } from "./ui/AppTextBold";
 import { AppText } from "./ui/AppText";
 import { THEME } from "../theme";
-import PropTypes from "prop-types";
 
-export const Comment = ({ comment, onUserScreen }) => {
+export const Comment = ({ author, body, onUserScreen }: CommentProps) => {
   return (
     <View style={styles.comment}>
       <View style={styles.authorWrap}>
@@ -15,10 +14,10 @@ export const Comment = ({ comment, onUserScreen }) => {
           style={styles.author}
           onPress={onUserScreen}
         >
-          {comment.author}
+          {author}
         </AppTextBold>
       </View>
-      <AppText style={styles.body}>{comment.body}</AppText>
+      <AppText style={styles.body}>{body}</AppText>
     </View>
   );
 };
@@ -46,13 +45,3 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
-
-Comment.propTypes = {
-  comment: PropTypes.shape({
-    id: PropTypes.string,
-    body: PropTypes.string,
-    post: PropTypes.string,
-    author: PropTypes.string,
-  }).isRequired,
-  onUserScreen: PropTypes.func.isRequired,
-}
